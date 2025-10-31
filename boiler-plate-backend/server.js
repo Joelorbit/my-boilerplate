@@ -1,20 +1,36 @@
 require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+// Basic security and logging
+app.use(helmet());
+app.use(morgan('dev'));
+
+// Rate limiter (basic)
+app.use(rateLimit({ windowMs: 60 * 1000, max: 120 }));
+
 // Simple CORS middleware (no extra dependency needed)
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', process.env.CORS_ORIGIN || '*');
 	res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+	res.header('Access-Control-Allow-Credentials', 'true');
 	if (req.method === 'OPTIONS') return res.sendStatus(204);
 	next();
 });
 
 app.use(express.json());
+
+// Mount auth routes (added in scaffold)
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
 
 // Basic API endpoints
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
@@ -52,4 +68,14 @@ app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 	console.log('Available endpoints: GET /health, GET /api/hello, POST /api/echo');
 });
+
+// Connect to MongoDB (if provided)
+const MONGO_URI = process.env.MONGO_URI;
+if (MONGO_URI) {
+	mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+		.then(() => console.log('Connected to MongoDB'))
+		.catch((err) => console.error('MongoDB connection error:', err.message));
+} else {
+	console.log('MONGO_URI not provided; skipping MongoDB connection. Set MONGO_URI in .env to enable.');
+}
 
