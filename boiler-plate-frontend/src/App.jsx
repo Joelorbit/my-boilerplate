@@ -1,35 +1,47 @@
-import { useEffect } from 'react'
-import './App.css'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import { setAuthToken } from './services/api'
+﻿import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import './App.css';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Home from './pages/Home';
+import { setAuthToken } from './services/api';
 
-function Home() {
-  return (
-    <h1>hello motherfuckers</h1>
-  )
-}
+const navClass = ({ isActive }) => `nav-link${isActive ? ' active' : ''}`;
 
 function App() {
   useEffect(() => {
-    // read token from localStorage for demo convenience
-    const t = localStorage.getItem('token');
-    if (t) setAuthToken(t);
-  }, [])
+    // Read token from localStorage for demo convenience
+    const token = localStorage.getItem('token');
+    if (token) setAuthToken(token);
+  }, []);
 
   return (
     <BrowserRouter>
-      <nav style={{ padding: 12 }}>
-        <Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/register">Register</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+      <div className="app">
+        <header className="nav">
+          <div className="brand">
+            <span className="dot" />
+            MERN Starter
+          </div>
+          <nav className="nav-links">
+            <NavLink className={navClass} to="/" end>Home</NavLink>
+            <NavLink className={navClass} to="/login">Login</NavLink>
+            <NavLink className={navClass} to="/register">Register</NavLink>
+          </nav>
+        </header>
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </main>
+        <footer className="footer">
+          <span>Simple MERN starter for quick builds.</span>
+        </footer>
+      </div>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
