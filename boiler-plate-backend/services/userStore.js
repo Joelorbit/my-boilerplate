@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
+﻿const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 let UserModel;
 try {
-  // require lazily — models/User may depend on mongoose
-  // but it's okay if mongoose isn't connected
+  // require lazily -- models/User may depend on mongoose
+  // but it is safe if mongoose is not connected
   // eslint-disable-next-line global-require
   UserModel = require('../models/User');
 } catch (err) {
   UserModel = null;
 }
 
-// Simple in-memory store as fallback
+// In-memory store for quick start (no persistence)
 const memory = new Map();
 let idCounter = 1;
 

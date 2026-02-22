@@ -1,40 +1,32 @@
-# Boilerplate Backend
+﻿# Boilerplate Backend
 
-This is a minimal Node/Express backend for the boilerplate project.
+Simple Express + Mongo backend for the MERN starter.
 
-Available endpoints:
+Features
+- Health check and demo endpoints
+- JWT auth endpoints (register, login, me)
+- Optional MongoDB with in-memory fallback
+- Basic security middleware and rate limiting
 
-- GET /health — simple health check
-- GET /api/hello — returns a hello message
-- POST /api/echo — echoes JSON body
+Endpoints
+- GET /health
+- GET /api/hello
+- POST /api/echo
+- POST /api/auth/register
+- POST /api/auth/login
+- GET /api/auth/me (Bearer token)
 
-How to run:
-
-1. Open a terminal in this folder:
-
+Run locally
 ```powershell
 cd boiler-plate-backend
-```
-
-2. Install dependencies (only required the first time):
-
-```powershell
 npm install
-```
-
-3. Start server in development (auto-restarts on changes):
-
-```powershell
+copy .env.example .env
 npm run dev
 ```
 
-4. Or start normally:
-
-```powershell
-npm start
-```
-
-Notes:
-
-- Uses `PORT` env var if provided, otherwise defaults to 4000.
-- To restrict CORS, set `CORS_ORIGIN` environment variable.
+Environment
+- PORT (default 4000)
+- MONGO_URI
+- JWT_SECRET
+- JWT_EXPIRES_IN
+- CORS_ORIGIN (comma-separated list)
