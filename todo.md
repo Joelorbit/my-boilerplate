@@ -20,12 +20,22 @@
 - [x] Rewrite the landing page with simple, catchy, product-neutral starter copy.
 - [x] Remove noisy demo language and tighten the frontend presentation for a clean starter experience.
 - [x] Expand documentation for monorepo workflows, local development, persistence, backups, and deployment operations.
-- [ ] Prepare a repository push handoff and clarify the final publish target.
+- [x] Prepare a repository push handoff and clarify the final publish target.
 - [x] Verify the cleaned frontend and documentation with the full quality gate.
-- [ ] Create a final checkpoint after the cleanup pass.
+- [x] Create a final checkpoint after the cleanup pass.
 
 - [x] Keep the current Autoscale hosting mode unchanged.
-- [ ] Replace the selected GitHub repository contents with the cleaned TypeStack monorepo.
-- [ ] Verify the pushed repository contains the current project rather than legacy files.
+- [x] Replace the selected GitHub repository contents with the cleaned TypeStack monorepo.
+- [x] Verify the pushed repository contains the current project rather than legacy files.
 
 - [x] Keep this pass limited to the boilerplate; do not change or configure hosting.
+
+- [x] Reduce the landing page to a simple two-to-three-line message only.
+- [x] Change the landing visual accent from indigo to neutral gray inspired by EyuTheme.
+- [x] Verify and checkpoint only this landing-page revision.
+
+- [x] Apply the selected Mytheme typography to the minimal gray landing page only.
+- [x] Verify and checkpoint the typography-only landing update.
+
+- [ ] Push the complete current monorepo and final typography landing page to the selected GitHub repository.
+- [ ] Verify the GitHub repository contains frontend, backend, database, shared packages, docs, and the final landing page.
